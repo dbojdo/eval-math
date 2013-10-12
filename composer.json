@@ -1,0 +1,14 @@
+{
+	"name" : "webit/eval-math",
+	"description" : "EvalMath",
+	"type" : "library",
+	"keywords" : [
+		"EvalMath"
+	],
+	"autoload" : {
+		"psr-0" : {
+			"Webit\\Util\\EvalMath" : "src/"
+		}
+	},
+	"target-dir" : "Webit/Util/EvalMath"
+}
