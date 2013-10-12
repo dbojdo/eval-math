@@ -1,17 +1,17 @@
 Composer/Packagist version of EvalMath by Miles Kaufman
 Copyright (C) 2005 Miles Kaufmann <http://www.twmagic.com/>
 NAME
-====
+----
     EvalMath - safely evaluate math expressions
   
 DESCRIPTION
-===========
+-----------
     Use the EvalMath class when you want to evaluate mathematical expressions 
     from untrusted sources.  You can define your own variables and functions,
     which are stored in the object.  Try it, it's fun!
         
 SYNOPSIS
-========
+--------
 `$m = new EvalMath;`
 `// basic evaluation:`
 `$result = $m->evaluate('2+2');`
@@ -25,7 +25,7 @@ SYNOPSIS
 `$result = $m->evaluate('3*f(42,a)');`
 
 METHODS
-=======
+-------
     `$m->evalute($expr)`
         Evaluates the expression and returns the result.  If an error occurs,
         prints a warning and returns false.  If $expr is a function assignment,
@@ -41,6 +41,7 @@ METHODS
         Returns an array of all user-defined functions.
 
 PARAMETERS
+----------
     `$m->suppress_errors`
         Set to true to turn off warnings when evaluating expressions
 
