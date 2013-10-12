@@ -9,6 +9,5 @@
 		"psr-0" : {
 			"Webit\\Util\\EvalMath" : "src/"
 		}
-	},
-	"target-dir" : "Webit/Util/EvalMath"
+	}
 }
