@@ -6,8 +6,13 @@
 		"EvalMath"
 	],
 	"autoload" : {
-		"psr-0" : {
-			"Webit\\Util\\EvalMath" : "src/"
+		"psr-4" : {
+			"Webit\\Util\\EvalMath\\" : "src/"
 		}
-	}
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
 }

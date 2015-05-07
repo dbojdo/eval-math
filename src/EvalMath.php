@@ -1,32 +1,68 @@
 <?php
-
 namespace Webit\Util\EvalMath;
 
-class EvalMath {
+/**
+ * Class EvalMath
+ */
+class EvalMath
+{
+    /**
+     * @var bool
+     */
+    public $suppress_errors = false;
 
-    var $suppress_errors = false;
-    var $last_error = null;
-    
-    var $v = array('e'=>2.71,'pi'=>3.14); // variables (and constants)
-    var $f = array(); // user-defined functions
-    var $vb = array('e', 'pi'); // constants
-    var $fb = array(  // built-in functions
+    /**
+     * @var string
+     */
+    public $last_error = null;
+
+    /**
+     * @var array
+     */
+    public $v = array('e'=>2.71,'pi'=>3.14); // variables (and constants)
+
+    /**
+     * @var array
+     */
+    public $f = array(); // user-defined functions
+
+    /**
+     * @var array
+     */
+    public $vb = array('e', 'pi'); // constants
+
+    /**
+     * @var array
+     */
+    public $fb = array(  // built-in functions
         'sin','sinh','arcsin','asin','arcsinh','asinh',
         'cos','cosh','arccos','acos','arccosh','acosh',
         'tan','tanh','arctan','atan','arctanh','atanh',
-        'sqrt','abs','ln','log');
-    
-    function EvalMath() {
+        'sqrt','abs','ln','log'
+    );
+
+    public function __construct()
+    {
         // make the variables a little more accurate
         $this->v['pi'] = pi();
         $this->v['e'] = exp(1);
     }
-    
-    function e($expr) {
+
+    /**
+     * @param string $expr
+     * @return mixed
+     */
+    public function e($expr)
+    {
         return $this->evaluate($expr);
     }
-    
-    function evaluate($expr) {
+
+    /**
+     * @param string $expr
+     * @return mixed
+     */
+    public function evaluate($expr)
+    {
         $this->last_error = null;
         $expr = trim($expr);
         if (substr($expr, -1, 1) == ';') $expr = substr($expr, 0, strlen($expr)-1); // strip semicolons at the end
@@ -65,25 +101,35 @@ class EvalMath {
             return $this->pfx($this->nfx($expr)); // straight up evaluation, woo
         }
     }
-    
-    function vars() {
+
+    /**
+     * @return array
+     */
+    public function vars()
+    {
         $output = $this->v;
         unset($output['pi']);
         unset($output['e']);
         return $output;
     }
-    
-    function funcs() {
+
+    /**
+     * @return array
+     */
+    public function funcs()
+    {
         $output = array();
         foreach ($this->f as $fnn=>$dat)
             $output[] = $fnn . '(' . implode(',', $dat['args']) . ')';
+
         return $output;
     }
 
     //===================== HERE BE INTERNAL METHODS ====================\\
 
     // Convert infix to postfix notation
-    function nfx($expr) {
+    public function nfx($expr)
+    {
     
         $index = 0;
         $stack = new Stack;
@@ -210,8 +256,8 @@ class EvalMath {
     }
 
     // evaluate postfix notation
-    function pfx($tokens, $vars = array()) {
-        
+    public function pfx($tokens, $vars = array())
+    {
         if ($tokens == false) return false;
     
         $stack = new Stack;
@@ -272,7 +318,8 @@ class EvalMath {
     }
     
     // trigger an error, but nicely, if need be
-    function trigger($msg) {
+    public function trigger($msg)
+    {
         $this->last_error = $msg;
         if (!$this->suppress_errors)
         {
@@ -288,7 +335,8 @@ class EvalMath {
     # line number which called your function
     # (not this function, then one that  called 
     # it to begin with) 
-    function debugPrintCallingFunction () {
+    public function debugPrintCallingFunction()
+    {
         $file = 'n/a';
         $func = 'n/a'; 
         $line = 'n/a';
@@ -301,4 +349,3 @@ class EvalMath {
         echo "\n$file, $func, $line\n";
     }
 }
-?>
