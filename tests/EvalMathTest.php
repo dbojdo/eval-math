@@ -56,4 +56,46 @@ class EvalMathTest extends \PHPUnit_Framework_TestCase
             )
         );
     }
+
+    /**
+     * @test
+     * @dataProvider doubleMinusData
+     */
+    public function shouldConsiderDoubleMinusAsPlus($formula, $values, $expectedResult)
+    {
+        foreach ($values as $k => $v) {
+            $this->evalMath->v[$k] = $v;
+        }
+
+        $this->assertEquals(
+            $expectedResult,
+            $this->evalMath->evaluate($formula)
+        );
+    }
+
+    public function doubleMinusData()
+    {
+        return array(
+            array(
+                'a+b*c--d', // 1+2*3--4 => 1+6+4 => 11
+                array(
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 4
+                ),
+                11
+            ),
+            array(
+                'a+b*c--d', // 1+2*3---4 => 1+6-4 => 3
+                array(
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => -4
+                ),
+                3
+            )
+        );
+    }
 }
